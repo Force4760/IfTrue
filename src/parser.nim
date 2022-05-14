@@ -53,7 +53,7 @@ func checkSemantics*(p: Parser) =
             if p.kNext() notin nextUn:
                 raise newException(Exception, "")
 
-        of AND, OR, XOR, IF, IFF:
+        of AND, NAND, OR, NOR, IF, IFF, XOR:
             if p.kPrev() notin prevBi:
                 raise newException(Exception, "")
             if p.kNext() notin nextBi:
@@ -98,7 +98,7 @@ proc buildAst(p: Parser): Ast =
             kind: NOT,
             right: p.buildAst(),
         )
-    of AND, OR, IF, IFF, XOR:
+    of AND, NAND, OR, NOR, IF, CONV, IFF, XOR:
         return Ast(
             kind: t.kind,
             right: p.buildAst(),

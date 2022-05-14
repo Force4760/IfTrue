@@ -1,9 +1,9 @@
 # TO-DO
 
-## Maybe
-- [ ] Add Nand
-- [ ] Add Nor
-- [ ] Add <-
+## Ops
+- [X] Add Nand
+- [X] Add Nor
+- [X] Add <-
  
 ## Lexer
 - [ ] Colorize error messages

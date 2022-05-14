@@ -18,7 +18,7 @@ func repr*(a: Ast): string =
     of FALSE: "F"
     of NOT: # Unary Operation
         "~" & a.right.repr()
-    of AND, OR, XOR, IFF, IF: # Binary Operations
+    of AND, NAND, OR, NOR, IFF, XOR, IF, CONV: # Binary Operations
         fmt"({a.left.repr()} {a.kind} {a.right.repr()})"
     else: ""
 
@@ -31,12 +31,18 @@ func eval*(a: Ast, t: Table[string, bool]): bool =
         not a.right.eval(t)
     of AND: 
         a.left.eval(t) and a.right.eval(t)
+    of NAND:
+        not (a.left.eval(t) and a.right.eval(t))
     of OR: 
         a.left.eval(t) or a.right.eval(t)
-    of XOR: 
-        a.left.eval(t) != a.right.eval(t)
+    of NOR:
+        not (a.left.eval(t) or a.right.eval(t))
     of IFF: 
         a.left.eval(t) == a.right.eval(t)
+    of XOR: 
+        a.left.eval(t) != a.right.eval(t)
     of IF: 
         not a.left.eval(t) or a.right.eval(t)
+    of CONV: 
+        a.left.eval(t) or not a.right.eval(t)
     else: true

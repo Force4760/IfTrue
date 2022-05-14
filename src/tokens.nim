@@ -8,11 +8,14 @@ type Kind* = enum
     FALSE
     VAR
     AND
+    NAND
     OR
+    NOR
     IF
+    CONV
     IFF
-    NOT
     XOR
+    NOT
     LPAREN
     RPAREN
 
@@ -21,11 +24,14 @@ func `$`*(k: Kind): string =
     of TRUE: "T"
     of FALSE: "F"
     of AND: "^"
+    of NAND: "↑"
     of OR: "v"
+    of NOR: "↓"
     of IF: "->"
+    of CONV: "<-"
     of IFF: "<->"
-    of NOT: "~"
     of XOR: "x"
+    of NOT: "~"    
     of LPAREN: "("
     of RPAREN: ")"
     of INVALID: "-"
@@ -35,8 +41,8 @@ func `$`*(k: Kind): string =
 func prec*(k: Kind): int =
     return case k:
     of NOT: 3
-    of AND, OR, XOR: 2
-    of IF, IFF: 1
+    of AND, OR, NAND, NOR: 2
+    of IF, IFF, XOR: 1
     else: 0
 
 #[

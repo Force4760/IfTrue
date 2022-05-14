@@ -19,7 +19,7 @@ test "lexer 1: A ^ (B x !C)":
     ]
 
 test "lexer 2: Operation":
-    let lex = newLexer("! ~ && ^ || v -> > == <-> != x")
+    let lex = newLexer("! ~ && ^ || v -> > == <-> != ~v ~^ <- <")
     lex.tokenize()
 
     doAssert lex.getToks() == @[
@@ -34,7 +34,10 @@ test "lexer 2: Operation":
         newToken(IFF, "=="),
         newToken(IFF, "<->"),
         newToken(XOR, "!="),
-        newToken(XOR, "x"),
+        newToken(NOR, "~v"),
+        newToken(NAND, "~^"),
+        newToken(CONV, "<-"),
+        newToken(CONV, "<"),
     ]
 
 test "lexer 3: Puntuation":

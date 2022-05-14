@@ -35,8 +35,6 @@ test "Operations":
     doAssert isOpChar('|') == true
     doAssert isOpChar('v') == true
 
-    doAssert isOpChar('x') == true
-
     doAssert isOpChar('-') == true
     doAssert isOpChar('>') == true
     doAssert isOpChar('<') == true
@@ -52,7 +50,11 @@ test "Operations":
     doAssert getOp("v") == newToken(OR, "v")
 
     doAssert getOp("!=") == newToken(XOR, "!=")
-    doAssert getOp("x") == newToken(XOR, "x")
+    doAssert getOp("~v") == newToken(NOR, "~v")
+    doAssert getOp("~^") == newToken(NAND, "~^")
+
+    doAssert getOp("<-") == newToken(CONV, "<-")
+    doAssert getOp("<") == newToken(CONV, "<")
 
     doAssert getOp("->") == newToken(IF, "->")
     doAssert getOp(">") == newToken(IF, ">")
