@@ -14,7 +14,7 @@ test "AST representation":
                 value: "A",
             ),
             right: Ast(
-                kind: OR,
+                kind: NOR,
                 left: Ast(
                     kind: FALSE,
                     value: "F"
@@ -25,7 +25,7 @@ test "AST representation":
                 )
             )
         )
-    ).repr() == "~(A ^ (F v T))"
+    ).repr() == "¬(A ∧ (F ⊽ T))"
 
 test "AST eval 1":
     doAssert Ast(

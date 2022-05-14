@@ -24,13 +24,13 @@ Command line interface for building Logic tables from a given logic expression.
 <not>  ::= <notOp> <expr>
 
 <andOp>  ::= "&&" | "^" 
-<nandOp> ::= "!&" | "~^"
+<nandOp> ::= "~^"
 <orOp>   ::= "||" | "v"
-<norOp>  ::= "!|" | "~v"
+<norOp>  ::= "~v"
 <ifOp>   ::= ">"  | "->" 
 <conOp>  ::= "<"  | "<-" 
 <iffOp>  ::= "==" | "<->"
-<xorOp>  ::= "!=" | "x" 
+<xorOp>  ::= "!=" 
 <notOp>  ::= "!"  | "~"
 
 <operation> ::= <and> | <or> | <if> | <con> | <iff> | <nand> | <nor> | <xor> | <not>

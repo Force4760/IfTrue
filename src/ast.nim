@@ -17,7 +17,7 @@ func repr*(a: Ast): string =
     of TRUE: "T"
     of FALSE: "F"
     of NOT: # Unary Operation
-        "~" & a.right.repr()
+        $NOT & a.right.repr()
     of AND, NAND, OR, NOR, IFF, XOR, IF, CONV: # Binary Operations
         fmt"({a.left.repr()} {a.kind} {a.right.repr()})"
     else: ""
