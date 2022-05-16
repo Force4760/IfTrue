@@ -1,12 +1,8 @@
 import std/strformat
 
-import cligen
-
 import src/main, src/tabular
 
-proc main(output: string = "md") = 
-    let input = stdin.readLine()
-
+proc ifTrue(output: string = "md", input: string) =
     try:
         let tab = inputToTabular(input)
 
@@ -21,4 +17,4 @@ proc main(output: string = "md") =
         echo e.msg
 
 
-main()
+import cligen; dispatch(ifTrue)
