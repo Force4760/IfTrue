@@ -25,7 +25,7 @@ test "AST representation":
                 )
             )
         )
-    ).repr() == "¬(A ∧ (F ⊽ T))"
+    ).repr() == "~(A ^ (F \\ T))"
 
 test "AST eval 1":
     doAssert Ast(

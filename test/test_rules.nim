@@ -49,8 +49,13 @@ test "Operations":
     doAssert getOp("||") == newToken(OR, "||")
     doAssert getOp("v") == newToken(OR, "v")
 
+    doAssert getOp("x") == newToken(XOR, "x")
     doAssert getOp("!=") == newToken(XOR, "!=")
+
+    doAssert getOp("\\") == newToken(NOR, "\\")
     doAssert getOp("~v") == newToken(NOR, "~v")
+
+    doAssert getOp("/") == newToken(NAND, "/")
     doAssert getOp("~^") == newToken(NAND, "~^")
 
     doAssert getOp("<-") == newToken(CONV, "<-")

@@ -14,19 +14,19 @@ func isWhite*(c: char): bool =
 
 # Check if a char could be an Op
 func isOpChar*(c: char): bool =
-    return c in "!~&|^>v<-="
+    return c in "!~&|^>v<-=\\/x"
 
 # Turn string into a Op token
 func getOp*(str: string): Token =
     return case str:
         of "^", "&&": newToken(AND, str)
-        of "~^": newToken(NAND, str)
+        of "/", "~^": newToken(NAND, str)
         of "v", "||": newToken(OR, str)
-        of "~v": newToken(NOR, str)
+        of "\\", "~v": newToken(NOR, str)
         of "->", ">": newToken(IF, str)
         of "<-", "<": newToken(CONV, str)
         of "<->", "==": newToken(IFF, str)
-        of "!=": newToken(XOR, str)
+        of "x", "!=": newToken(XOR, str)
         of "!", "~": newToken(NOT, str)
         else: newToken(INVALID, str)
 
