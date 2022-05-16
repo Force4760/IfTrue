@@ -43,7 +43,7 @@ func prec*(k: Kind): int =
     return case k:
     of NOT: 3
     of AND, OR, NAND, NOR: 2
-    of IF, IFF, XOR: 1
+    of IF, CONV, IFF, XOR: 1
     else: 0
 
 #[

@@ -74,7 +74,7 @@ proc toTabular(t: TruthTable): Tabular =
     
     # Add every variable.
     # Reverse order is used so that the variable appear in the correct form 
-    for k in reverse(t.vars):
+    for k in keys(t.vars):
         header.add(k)
 
     # Add every expression (as a string) to the header
@@ -86,6 +86,7 @@ proc toTabular(t: TruthTable): Tabular =
 
     return newTab(header, body)
 
+# Create the body and convert to Tabular
 func build*(t: TruthTable): Tabular =
     t.makeBody()
     return t.toTabular()

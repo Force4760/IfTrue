@@ -6,10 +6,10 @@
 - [X] Add <-
  
 ## Lexer
-- [ ] Colorize error messages
 - [ ] Parentheses check
 
 ## Parser
+- [ ] Error Messages
 
 ## AST
 - [X] Get All Sub Expressions
@@ -18,15 +18,14 @@
 - [X] Table data structure 
 - [X] Eval each Sub Expression for every variable combination
 - [X] Table generator
-- [ ] Copy to clipboard
 - [X] Table converter to:
     - [X] JSON
-    - [ ] MarkDown
-    - [ ] LaTeX
+    - [X] MarkDown
     - [X] HTML
     - [X] CSV
-    - [ ] Text
 
-## CLI
+## IF TRUE
 - [ ] Help msg
 - [ ] Flag parsing
+- [ ] Colorize error messages
+- [ ] Documentation

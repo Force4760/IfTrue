@@ -10,6 +10,7 @@ type Parser* = ref object
     ast: Ast
     index: int
 
+# Constructor for the Parser Type
 proc newParser*(toks: seq[Token]): Parser =
     return Parser(toks: toks, index: 0)
 
@@ -49,34 +50,37 @@ func kPrev(p: Parser): Kind =
 
     return p.toks[p.index-1].kind
 
+# Check if the semantics of the tokens are right
+# AKA: check if the tokens that comes before and after 
+#      every Token are allowed to be in that bosition
 func checkSemantics*(p: Parser) =
     for t in p.toks:
         case t.kind:
-        of NOT:
+        of NOT: # Unary
             if p.kPrev() notin prevUn:
                 raise newException(Exception, "1")
             if p.kNext() notin nextUn:
                 raise newException(Exception, "2")
 
-        of AND, NAND, OR, NOR, IF, IFF, XOR:
+        of AND, NAND, OR, NOR, IF, IFF, XOR: # Binary
             if p.kPrev() notin prevBi:
                 raise newException(Exception, "3")
             if p.kNext() notin nextBi:
                 raise newException(Exception, "4")
 
-        of FALSE, TRUE, VAR:
+        of FALSE, TRUE, VAR: # Values
             if p.kPrev() notin prevVal:
                 raise newException(Exception, "5")
             if p.kNext() notin nextVal:
                 raise newException(Exception, "6")
         
-        of LPAREN:
+        of LPAREN: # (
             if p.kPrev() notin prevLP:
                 raise newException(Exception, "7")
             if p.kNext() notin nextLP:
                 raise newException(Exception, "8")
         
-        of RPAREN:
+        of RPAREN: # )
             if p.kPrev() notin prevRP:
                 raise newException(Exception, "9")
             if p.kNext() notin nextRP:

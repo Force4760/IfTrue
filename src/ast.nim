@@ -36,19 +36,19 @@ func eval*(a: Ast, t: OrderedTable[string, bool]): bool =
         not a.right.eval(t)
     of AND: 
         a.left.eval(t) and a.right.eval(t)
-    of NAND:
+    of NAND: # A / B === ~(A ^ B)
         not (a.left.eval(t) and a.right.eval(t))
     of OR: 
         a.left.eval(t) or a.right.eval(t)
-    of NOR:
+    of NOR: # A \ B === ~(A v B)
         not (a.left.eval(t) or a.right.eval(t))
     of IFF: 
         a.left.eval(t) == a.right.eval(t)
     of XOR: 
         a.left.eval(t) != a.right.eval(t)
-    of IF: 
+    of IF: # A -> B === ~A v B
         not a.left.eval(t) or a.right.eval(t)
-    of CONV: 
+    of CONV: # A <- B === A v ~B
         a.left.eval(t) or not a.right.eval(t)
     else: true
 

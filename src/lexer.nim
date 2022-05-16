@@ -10,7 +10,7 @@ type Lexer* = ref object
     toks:  seq[Token]
     index: int
 
-# Constructor for the Lexer
+# Constructor for the Lexer Type
 func newLexer*(input: string): Lexer =
     let inp = input.strip()
     return Lexer(
@@ -38,6 +38,7 @@ proc readWhile(l: Lexer, pred: proc(c: char): bool): string =
         result &= l.current()
         l.index += 1
 
+# Turn the input into a a sequence of tokens
 proc tokenize*(l: Lexer) =
     # Whilhe the input has not been 100% read
     while not l.isEOF():
