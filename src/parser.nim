@@ -1,4 +1,4 @@
-import tables
+import tables, system
 
 import tokens
 import ast
@@ -133,6 +133,9 @@ proc parse*(p: Parser) =
     # Create the Abstract syntax tree
     p.ast = p.buildAst()
 
+    # Order the variables
+    p.vars.sort(system.cmp)
+    
     # Check if every token was consummed
     # If not, raise an error
     if p.index != len(p.toks):

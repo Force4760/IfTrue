@@ -1,4 +1,7 @@
 import std/strformat
+
+import cligen
+
 import src/main, src/tabular
 
 proc main(output: string = "md") = 

@@ -25,8 +25,21 @@ Differently than **Booleans**, **Variables** don't evaluate to a fixed value. Th
                                 | F | F | F |
 ```
 
+---
+
 ## Operations
 Operations combine values
+
+### Not
+* Arguments: 1
+* Symbols: `!`, `~` 
+
+```
+| A | ~A |
+|---|----|
+| T |  F |
+| F |  T |
+```
 
 ### And
 * Arguments: 2
@@ -85,6 +98,7 @@ Operations combine values
 ### If
 * Arguments: 2
 * Symbols: `->`, `>` 
+* Equivalent: `A -> B <=> ~A v B`
 
 ```
 | A | B | (A -> B) |
@@ -95,16 +109,44 @@ Operations combine values
 | F | F |     T    |
 ```
 
-### Nand
+### Converse
 * Arguments: 2
-* Symbols: `~^`, `/` 
-* Equivalent: `A / B <=> !(A ^ B)`
+* Symbols: `<-`, `<` 
+* Equivalent: `A <- B <=> A v ~B`
 
 ```
-| A | B | (A / B) |
-|---|---|---------|
-| T | T |    F    |
-| T | F |    T    |
-| F | T |    T    |
-| F | F |    T    |
+| A | B | (A <- B) |
+|---|---|----------|
+| T | T |     T    |
+| T | F |     T    |
+| F | T |     F    |
+| F | F |     T    |
+```
+
+### Iff (If and only if)
+* Arguments: 2
+* Symbols: `<->`, `==` 
+* Equivalent: `A <-> B <=> ((A -> B) ^ (B -> A))`
+
+```
+| A | B | (A <-> B) |
+|---|---|-----------|
+| T | T |     T     |
+| T | F |     F     |
+| F | T |     F     |
+| F | F |     T     |
+```
+
+### Xor (Exclusive or)
+* Arguments: 2
+* Symbols: `x`, `!=` 
+* Equivalent: `A x B <=> ~(A <-> B)`
+
+```
+| A | B | (A <-> B) |
+|---|---|-----------|
+| T | T |     F     |
+| T | F |     T     |
+| F | T |     T     |
+| F | F |     F     |
 ```
