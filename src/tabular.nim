@@ -4,7 +4,7 @@ import std/strformat
 import sugar
 
 # Object representing tabular data
-type Tabular = object
+type Tabular* = object
     head: seq[string]
     body: seq[seq[string]]
 

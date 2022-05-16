@@ -4,7 +4,7 @@ import tokens
 import lexer
 
 test "lexer 1: A ^ (B x !C)":
-    let lex = newLexer("A ^     (B x !C)")
+    let lex = newLexer("A ^     (B != !C)")
     lex.tokenize()
 
     doAssert lex.getToks() == @[
@@ -12,7 +12,7 @@ test "lexer 1: A ^ (B x !C)":
         newToken(AND, "^"),
         newToken(LPAREN, "("),
         newToken(VAR, "B"),
-        newToken(XOR, "x"),
+        newToken(XOR, "!="),
         newToken(NOT, "!"),
         newToken(VAR, "C"),
         newToken(RPAREN, ")"),

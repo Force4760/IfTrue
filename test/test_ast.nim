@@ -48,7 +48,7 @@ test "AST eval 1":
                 )
             )
         )
-    ).eval({"A": true}.toTable()) == false
+    ).eval({"A": true}.toOrderedTable()) == false
 
 test "AST eval 2":
     doAssert Ast(
@@ -71,7 +71,7 @@ test "AST eval 2":
                 )
             )
         )
-    ).eval({"A": true, "B": true}.toTable()) == false
+    ).eval({"A": true, "B": true}.toOrderedTable()) == false
 
 test "AST eval 3":
     doAssert Ast(
@@ -94,4 +94,4 @@ test "AST eval 3":
                 )
             )
         )
-    ).eval({"A": true, "B": false}.toTable()) == true
+    ).eval({"A": true, "B": false}.toOrderedTable()) == true

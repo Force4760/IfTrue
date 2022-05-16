@@ -6,20 +6,25 @@ import shunting
 
 type Parser* = ref object
     toks: seq[Token]
-    vars: Table[string, bool]
+    vars: OrderedTable[string, bool]
     ast: Ast
     index: int
 
 proc newParser*(toks: seq[Token]): Parser =
     return Parser(toks: toks, index: 0)
 
-func getVars*(p: Parser): Table[string, bool] =
+# Getter for the vars field of the parser
+func getVars*(p: Parser): OrderedTable[string, bool] =
     return p.vars
 
+# Getter for the Ast field of the parser
 func getAst*(p: Parser): Ast =
     return p.ast
 
+# Get the current Token the parser points to
+# If it's at the EOF -> INVALID
 func current(p: Parser): Token =
+    # At EOF
     if p.index >= len(p.toks):
         return zero
 
@@ -49,38 +54,41 @@ func checkSemantics*(p: Parser) =
         case t.kind:
         of NOT:
             if p.kPrev() notin prevUn:
-                raise newException(Exception, "")
+                raise newException(Exception, "1")
             if p.kNext() notin nextUn:
-                raise newException(Exception, "")
+                raise newException(Exception, "2")
 
         of AND, NAND, OR, NOR, IF, IFF, XOR:
             if p.kPrev() notin prevBi:
-                raise newException(Exception, "")
+                raise newException(Exception, "3")
             if p.kNext() notin nextBi:
-                raise newException(Exception, "")
+                raise newException(Exception, "4")
 
         of FALSE, TRUE, VAR:
             if p.kPrev() notin prevVal:
-                raise newException(Exception, "")
+                raise newException(Exception, "5")
             if p.kNext() notin nextVal:
-                raise newException(Exception, "")
+                raise newException(Exception, "6")
         
         of LPAREN:
             if p.kPrev() notin prevLP:
-                raise newException(Exception, "")
+                raise newException(Exception, "7")
             if p.kNext() notin nextLP:
-                raise newException(Exception, "")
+                raise newException(Exception, "8")
         
         of RPAREN:
             if p.kPrev() notin prevRP:
-                raise newException(Exception, "")
+                raise newException(Exception, "9")
             if p.kNext() notin nextRP:
-                raise newException(Exception, "")
+                raise newException(Exception, "10")
 
         else: discard
 
         p.index += 1
 
+# Recursively build the Ast
+# Leafs are -> Var, True, False
+# Nodes are -> Not, And, Nand, Or, Nor, If, Conv, Iff, Xor
 proc buildAst(p: Parser): Ast =
     let t = p.current()
     p.index += 1
@@ -94,11 +102,13 @@ proc buildAst(p: Parser): Ast =
     of TRUE:
         return Ast(kind: TRUE)
     of NOT:
+        # Unary Operation
         return Ast(
             kind: NOT,
             right: p.buildAst(),
         )
     of AND, NAND, OR, NOR, IF, CONV, IFF, XOR:
+        # Binary Operation
         return Ast(
             kind: t.kind,
             right: p.buildAst(),
@@ -106,12 +116,23 @@ proc buildAst(p: Parser): Ast =
         )
     else: Ast()
 
+# Execute all of the parsing steps
 proc parse*(p: Parser) =
+    # Semantics
     p.checkSemantics()
     p.index = 0
 
+    # Shunting yarn: 
+    # convert A ^ B to ^ B A
     p.toks = inToPre(p.toks)
     
+    # Create the Abstract syntax tree
     p.ast = p.buildAst()
+
+    # Check if every token was consummed
+    # If not, raise an error
     if p.index != len(p.toks):
-        raise newException(Exception, "")
+        raise newException(
+            Exception,
+            "The Parser couldn't parse the whole expression."
+        )

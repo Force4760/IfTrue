@@ -1,16 +1,15 @@
-import std/strformat
-import std/tables
+import std/strformat, std/sequtils, std/tables
+
 import tokens
 
+# Abstract syntax tree type object
 type Ast* = ref object
     kind*: Kind
     left*: Ast
     right*: Ast
     value*: string
 
-func `==`*(a1: Ast, a2: Ast): bool =
-    return a1.repr() == a2.repr()
-
+# String representation of an Ast
 func repr*(a: Ast): string =
     return case a.kind:
     of VAR: a.value
@@ -22,7 +21,13 @@ func repr*(a: Ast): string =
         fmt"({a.left.repr()} {a.kind} {a.right.repr()})"
     else: ""
 
-func eval*(a: Ast, t: Table[string, bool]): bool =
+# Operator Overloading for equality between two AST's
+func `==`*(a1: Ast, a2: Ast): bool =
+    return a1.repr() == a2.repr()
+
+# Evaluate, recursively, an Ast
+# t is a table with the value of the variables
+func eval*(a: Ast, t: OrderedTable[string, bool]): bool =
     return case a.kind:
     of VAR: t[a.value]
     of TRUE: true
@@ -46,3 +51,17 @@ func eval*(a: Ast, t: Table[string, bool]): bool =
     of CONV: 
         a.left.eval(t) or not a.right.eval(t)
     else: true
+
+
+# Recursively get all subexpressions of an AST as a sequence
+func subExpr*(a: Ast): seq[Ast] =
+    return case a.kind:
+    of NOT: 
+        # Unary Operations 
+        concat(a.right.subExpr(), @[a])
+
+    of AND, NAND, OR, NOR, IF, CONV, IFF, XOR:
+        # Binary Expressions
+        concat(a.right.subExpr(), a.left.subExpr(), @[a])
+
+    else: @[] # Var, True, False, ... 
