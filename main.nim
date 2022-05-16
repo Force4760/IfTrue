@@ -24,7 +24,7 @@ proc main() =
 
     var truth = newTruth(a, v).build()
 
-    echo truth.toCSV()
+    echo truth.toMD()
     
 
 

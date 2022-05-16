@@ -49,3 +49,23 @@ func toJSON*(t: Tabular): string =
         b.add("[" & row.map((x) => '"' & x & '"').join(", ") & "]")
 
     return "{\"head\": [" & h & "], \"body\": [" & b.join(", ") & "]}"
+
+# Get the JSON representation of the tabular data
+func toMD*(t: Tabular): string =
+    # get the head array
+    let h = "| " & t.head.join(" | ") & " |\n"
+
+    # get the division
+    var d = "|" & t.head.map(
+        (x) => repeat("-", len(x)+2)
+    ).join("|") & "|\n"
+
+    # get the body 2d-array
+    var b = ""
+    for row in t.body:
+        b &= "|"
+        for i in 0 ..< len(row):
+            b &= center(row[i], len(t.head[i])+2) & "|"
+        b &= "\n"
+
+    return h & d & b 
