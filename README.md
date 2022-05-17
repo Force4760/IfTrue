@@ -2,8 +2,8 @@
 Command line interface for building Logic tables from a given logic expression.
 
 ## Stack
-
-## CLI
+* Languages: Nim
+* Libraries: cligen 
 
 ## Syntax
 ```bnf
@@ -24,13 +24,13 @@ Command line interface for building Logic tables from a given logic expression.
 <not>  ::= <notOp> <expr>
 
 <andOp>  ::= "&&" | "^" 
-<nandOp> ::= "~^"
+<nandOp> ::= "~^" | "/"
 <orOp>   ::= "||" | "v"
-<norOp>  ::= "~v"
+<norOp>  ::= "~v" | "\"
 <ifOp>   ::= ">"  | "->" 
 <conOp>  ::= "<"  | "<-" 
 <iffOp>  ::= "==" | "<->"
-<xorOp>  ::= "!=" 
+<xorOp>  ::= "!=" | "x"
 <notOp>  ::= "!"  | "~"
 
 <operation> ::= <and> | <or> | <if> | <con> | <iff> | <nand> | <nor> | <xor> | <not>
