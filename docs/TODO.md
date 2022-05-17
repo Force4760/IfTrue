@@ -9,7 +9,7 @@
 - [ ] Parentheses check
 
 ## Parser
-- [ ] Error Messages
+- [X] Error Messages
 
 ## AST
 - [X] Get All Sub Expressions
@@ -25,7 +25,7 @@
     - [X] CSV
 
 ## IF TRUE
-- [ ] Help msg
-- [ ] Flag parsing
-- [ ] Colorize error messages
-- [ ] Documentation
+- [X] Help msg
+- [X] Flag parsing
+- [X] Colorize error messages
+- [X] Documentation

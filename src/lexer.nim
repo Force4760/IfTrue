@@ -1,8 +1,6 @@
-import std/strformat
 import std/strutils
 
-import tokens
-import rules
+import tokens, rules, helper
 
 type Lexer* = ref object
     input: string
@@ -63,10 +61,7 @@ proc tokenize*(l: Lexer) =
 
         # If no token was matched, return an error
         if t.kind == INVALID:
-            raise newException(
-                Exception,
-                fmt"Could not process the character at index {$l.index}",
-            )
+            raise errorLexer(l.index, c)
 
         # append the matched token to the list of tokens
         l.toks.add(t)

@@ -1,16 +1,23 @@
-import lexer, parser, tabular, truthtable
+import lexer, parser, tabular, truthtable, helper
 
-proc inputToTabular*(input: string): Tabular = 
+proc inputToTabular*(): Tabular =
+    ####################
+    ## Input
+    ##     
+    let input = getInput()
+
     ####################
     ## LEXER
-    ## string -> seq[Tokens]  
+    ## string -> seq[Tokens]
+    ##  
     var lex = newLexer(input)    
     lex.tokenize()
     
     ####################
     ## PARSER
     ## seq[Tokens] -> Ast
-    var par = newParser(lex.getToks)
+    ## 
+    let par = newParser(lex.getToks)
     par.parse()
     
     ####################

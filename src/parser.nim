@@ -1,8 +1,6 @@
 import tables, system
 
-import tokens
-import ast
-import shunting
+import tokens, ast, shunting, helper
 
 type Parser* = ref object
     toks: seq[Token]
@@ -58,33 +56,33 @@ func checkSemantics*(p: Parser) =
         case t.kind:
         of NOT: # Unary
             if p.kPrev() notin prevUn:
-                raise newException(Exception, "1")
+                raise errorParser($t)
             if p.kNext() notin nextUn:
-                raise newException(Exception, "2")
+                raise errorParser($t)
 
         of AND, NAND, OR, NOR, IF, IFF, XOR: # Binary
             if p.kPrev() notin prevBi:
-                raise newException(Exception, "3")
+                raise errorParser($t)
             if p.kNext() notin nextBi:
-                raise newException(Exception, "4")
+                raise errorParser($t)
 
         of FALSE, TRUE, VAR: # Values
             if p.kPrev() notin prevVal:
-                raise newException(Exception, "5")
+                raise errorParser($t)
             if p.kNext() notin nextVal:
-                raise newException(Exception, "6")
+                raise errorParser($t)
         
         of LPAREN: # (
             if p.kPrev() notin prevLP:
-                raise newException(Exception, "7")
+                raise errorParser($t)
             if p.kNext() notin nextLP:
-                raise newException(Exception, "8")
+                raise errorParser($t)
         
         of RPAREN: # )
             if p.kPrev() notin prevRP:
-                raise newException(Exception, "9")
+                raise errorParser($t)
             if p.kNext() notin nextRP:
-                raise newException(Exception, "10")
+                raise errorParser($t)
 
         else: discard
 

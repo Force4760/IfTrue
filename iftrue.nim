@@ -2,9 +2,9 @@ import std/strformat
 
 import src/main, src/tabular
 
-proc ifTrue(output: string = "md", input: string) =
+proc ifTrue(output = "md") =
     try:
-        let tab = inputToTabular(input)
+        let tab = inputToTabular()
 
         echo case output:
             of "md": tab.toMD()
@@ -14,7 +14,9 @@ proc ifTrue(output: string = "md", input: string) =
             else: fmt"Invalid output flag: {output}"         
 
     except Exception as e:
-        echo e.msg
+        echo "\n\e[0;31m" & e.msg & "\e[0m\n"
 
 
-import cligen; dispatch(ifTrue)
+import cligen; dispatch(ifTrue, help = {
+    "output": "output format [ md | html | csv | json ]"
+})
