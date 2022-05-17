@@ -29,7 +29,7 @@ $ nim c iftrue.nim
 
 5. [Optional] Add the binary to your path
 
-## Syntax
+## Syntax 
 
 ```bnf
 <bool>  ::= <true> | <false>
