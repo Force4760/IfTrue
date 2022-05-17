@@ -6,6 +6,7 @@ Command line interface for building Logic tables from a given logic expression.
 * Libraries: cligen 
 
 ## Instalation
+
 1. Install the **Nim** language, as explained in [this guide](https://nim-lang.org/install_unix.html)
 
 2. Install cligen by running thefollowing command inside your terminal
@@ -27,6 +28,8 @@ $ nim c iftrue.nim
 ```
 
 5. [Optional] Add the binary to your path
+
+## Syntax
 
 ```bnf
 <bool>  ::= <true> | <false>
